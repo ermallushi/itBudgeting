@@ -1,0 +1,41 @@
+@{ ViewData["Title"] = "Reports"; }
+<h2 class="mb-4">📈 Reports</h2>
+<div class="card" style="max-width:500px">
+  <div class="card-body">
+    <p class="text-muted">Select a budget version to view reports.</p>
+    <form method="get" action="#">
+      <div class="mb-3">
+        <label class="form-label">Budget Version</label>
+        <select id="versionSelect" class="form-select">
+          <option value="">-- Select --</option>
+          @foreach (var v in (IEnumerable<ITBudgeting.Application.DTOs.BudgetVersionDto>)ViewBag.Versions)
+          {
+              <option value="@v.Id">@v.Name (@v.Year)</option>
+          }
+        </select>
+      </div>
+      <div class="d-flex gap-2">
+        <a id="summaryLink" href="#" class="btn btn-primary disabled">Budget Summary</a>
+        <a id="varianceLink" href="#" class="btn btn-outline-primary disabled">Variance Report</a>
+      </div>
+    </form>
+  </div>
+</div>
+@section Scripts {
+<script>
+  document.getElementById('versionSelect').addEventListener('change', function() {
+      var id = this.value;
+      var sl = document.getElementById('summaryLink');
+      var vl = document.getElementById('varianceLink');
+      if (id) {
+          sl.href = '/Reports/Summary?versionId=' + id;
+          vl.href = '/Reports/Variance?versionId=' + id;
+          sl.classList.remove('disabled');
+          vl.classList.remove('disabled');
+      } else {
+          sl.href = '#'; vl.href = '#';
+          sl.classList.add('disabled'); vl.classList.add('disabled');
+      }
+  });
+</script>
+}

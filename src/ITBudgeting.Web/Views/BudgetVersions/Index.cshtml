@@ -1,0 +1,76 @@
+@using ITBudgeting.Domain.Enums
+@model IEnumerable<ITBudgeting.Application.DTOs.BudgetVersionDto>
+@{ ViewData["Title"] = "Budget Versions"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>📋 Budget Versions</h2>
+    <a asp-action="Create" class="btn btn-primary">+ New Version</a>
+</div>
+
+<table class="table table-striped table-hover datatable">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th><th>Year</th><th>Type</th><th>Status</th><th>Created By</th><th>Created At</th><th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var v in Model)
+    {
+        <tr>
+            <td>@v.Name</td>
+            <td>@v.Year</td>
+            <td>@v.Type</td>
+            <td>
+                @{
+                    var badge = v.Status switch {
+                        BudgetVersionStatus.Draft     => "warning",
+                        BudgetVersionStatus.Submitted => "info",
+                        BudgetVersionStatus.Approved  => "success",
+                        BudgetVersionStatus.Locked    => "danger",
+                        _ => "secondary"
+                    };
+                }
+                <span class="badge text-bg-@badge">@v.Status</span>
+            </td>
+            <td>@v.CreatedBy</td>
+            <td>@v.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+            <td>
+                <div class="d-flex gap-1 flex-wrap">
+                    <a asp-controller="BudgetLines" asp-action="Index" asp-route-versionId="@v.Id" class="btn btn-sm btn-outline-secondary">Lines</a>
+                    <a asp-controller="BudgetPeriods" asp-action="Index" asp-route-versionId="@v.Id" class="btn btn-sm btn-outline-secondary">Periods</a>
+                    @if (v.Status == BudgetVersionStatus.Draft)
+                    {
+                        <a asp-action="Edit" asp-route-id="@v.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                        <form asp-action="Submit" asp-route-id="@v.Id" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <button class="btn btn-sm btn-outline-info" onclick="return confirm('Submit for approval?')">Submit</button>
+                        </form>
+                        <form asp-action="Delete" asp-route-id="@v.Id" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <button class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete version?')">Delete</button>
+                        </form>
+                    }
+                    @if (v.Status == BudgetVersionStatus.Submitted)
+                    {
+                        <form asp-action="Approve" asp-route-id="@v.Id" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <button class="btn btn-sm btn-success" onclick="return confirm('Approve version?')">Approve</button>
+                        </form>
+                    }
+                    @if (v.Status == BudgetVersionStatus.Approved)
+                    {
+                        <form asp-action="Lock" asp-route-id="@v.Id" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <button class="btn btn-sm btn-danger" onclick="return confirm('Lock version?')">Lock</button>
+                        </form>
+                        <a asp-action="CloneRevision" asp-route-id="@v.Id" class="btn btn-sm btn-outline-warning">Clone Revision</a>
+                    }
+                    @if (v.Status == BudgetVersionStatus.Locked)
+                    {
+                        <a asp-action="CloneRevision" asp-route-id="@v.Id" class="btn btn-sm btn-outline-warning">Clone Revision</a>
+                    }
+                </div>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

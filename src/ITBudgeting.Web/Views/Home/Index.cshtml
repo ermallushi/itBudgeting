@@ -1,0 +1,79 @@
+@model ITBudgeting.Web.ViewModels.DashboardViewModel
+@{ ViewData["Title"] = "Dashboard"; }
+<h2 class="mb-4">📊 Dashboard</h2>
+
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-lg-3">
+        <div class="card text-bg-primary">
+            <div class="card-body">
+                <h6 class="card-title">Budget Versions</h6>
+                <h2 class="card-text">@Model.BudgetVersionCount</h2>
+                <a asp-controller="BudgetVersions" asp-action="Index" class="text-white small">View →</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card text-bg-success">
+            <div class="card-body">
+                <h6 class="card-title">Cost Centers</h6>
+                <h2 class="card-text">@Model.CostCenterCount</h2>
+                <a asp-controller="CostCenters" asp-action="Index" class="text-white small">View →</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card text-bg-info">
+            <div class="card-body">
+                <h6 class="card-title">Projects</h6>
+                <h2 class="card-text">@Model.ProjectCount</h2>
+                <a asp-controller="Projects" asp-action="Index" class="text-white small">View →</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card text-bg-warning">
+            <div class="card-body">
+                <h6 class="card-title">Purchase Requests</h6>
+                <h2 class="card-text">@Model.PurchaseRequestCount</h2>
+                <a asp-controller="PurchaseRequests" asp-action="Index" class="text-white small">View →</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-lg-3">
+        <div class="card text-bg-secondary">
+            <div class="card-body">
+                <h6 class="card-title">Purchase Orders</h6>
+                <h2 class="card-text">@Model.PurchaseOrderCount</h2>
+                <a asp-controller="PurchaseOrders" asp-action="Index" class="text-white small">View →</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card text-bg-dark">
+            <div class="card-body">
+                <h6 class="card-title">Budget Transfers</h6>
+                <h2 class="card-text">@Model.BudgetTransferCount</h2>
+                <a asp-controller="BudgetTransfers" asp-action="Index" class="text-white small">View →</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card border-success">
+            <div class="card-body">
+                <h6 class="card-title text-success">Total Planned</h6>
+                <h4 class="card-text">@Model.TotalPlanned.ToString("C")</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card border-primary">
+            <div class="card-body">
+                <h6 class="card-title text-primary">Total Approved</h6>
+                <h4 class="card-text">@Model.TotalApproved.ToString("C")</h4>
+            </div>
+        </div>
+    </div>
+</div>

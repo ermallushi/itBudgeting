@@ -4,6 +4,7 @@
     <Project Path="src/ITBudgeting.Application/ITBudgeting.Application.csproj" />
     <Project Path="src/ITBudgeting.Domain/ITBudgeting.Domain.csproj" />
     <Project Path="src/ITBudgeting.Infrastructure/ITBudgeting.Infrastructure.csproj" />
+    <Project Path="src/ITBudgeting.Web/ITBudgeting.Web.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/ITBudgeting.Tests/ITBudgeting.Tests.csproj" />

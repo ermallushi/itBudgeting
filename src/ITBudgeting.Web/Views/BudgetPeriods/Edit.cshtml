@@ -1,0 +1,22 @@
+@model ITBudgeting.Web.ViewModels.EditBudgetPeriodViewModel
+@{ ViewData["Title"] = "Edit Period"; }
+<h2 class="mb-4">Edit Period — @ViewBag.Year-@ViewBag.Month?.ToString("00")</h2>
+<div class="card" style="max-width:400px">
+  <div class="card-body">
+    <form asp-action="Edit" method="post">
+      @Html.AntiForgeryToken()
+      <div asp-validation-summary="All" class="text-danger small mb-2"></div>
+      <div class="mb-3 form-check form-switch">
+        <input asp-for="IsOpen" class="form-check-input" type="checkbox" role="switch" />
+        <label asp-for="IsOpen" class="form-check-label">Period is Open</label>
+      </div>
+      <div class="mb-3">
+        <label asp-for="LockType" class="form-label"></label>
+        <select asp-for="LockType" asp-items="Html.GetEnumSelectList<ITBudgeting.Domain.Enums.PeriodLockType>()" class="form-select"></select>
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a asp-action="Index" asp-route-versionId="@ViewBag.VersionId" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+  </div>
+</div>
+@section Scripts { @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); } }

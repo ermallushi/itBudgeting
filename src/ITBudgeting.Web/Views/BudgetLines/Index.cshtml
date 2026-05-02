@@ -1,0 +1,51 @@
+@model IEnumerable<ITBudgeting.Application.DTOs.BudgetLineDto>
+@{ ViewData["Title"] = "Budget Lines"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h2 class="mb-0">📝 Budget Lines</h2>
+        @if (ViewBag.VersionName != null)
+        {
+            <small class="text-muted">Version: @ViewBag.VersionName</small>
+        }
+    </div>
+    @if (ViewBag.VersionId != null)
+    {
+        <a asp-action="Create" asp-route-versionId="@ViewBag.VersionId" class="btn btn-primary">+ New Line</a>
+    }
+</div>
+
+<table class="table table-sm table-hover datatable">
+    <thead class="table-dark">
+        <tr>
+            <th>Cost Center</th><th>Project</th><th>Category</th><th>Period</th>
+            <th class="text-end">Planned</th><th class="text-end">Approved</th>
+            <th class="text-end">Committed</th><th class="text-end">Actual</th>
+            <th class="text-end">Remaining</th><th>Over?</th><th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var l in Model)
+    {
+        var rowClass = l.IsOverBudget ? "table-danger" : "";
+        <tr class="@rowClass">
+            <td>@l.CostCenterId.ToString()[..8]…</td>
+            <td>@l.ProjectId.ToString()[..8]…</td>
+            <td><span class="badge text-bg-@(l.Category.ToString() == "CapEx" ? "info" : "secondary")">@l.Category</span></td>
+            <td>@l.Period</td>
+            <td class="text-end">@l.PlannedAmount.ToString("C")</td>
+            <td class="text-end">@l.ApprovedAmount.ToString("C")</td>
+            <td class="text-end">@l.CommittedAmount.ToString("C")</td>
+            <td class="text-end">@l.ActualAmount.ToString("C")</td>
+            <td class="text-end @(l.RemainingAmount < 0 ? "text-danger fw-bold" : "text-success")">@l.RemainingAmount.ToString("C")</td>
+            <td>@(l.IsOverBudget ? "⚠️" : "✅")</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@l.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                <form asp-action="Delete" asp-route-id="@l.Id" asp-route-versionId="@l.VersionId" method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <button class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete?')">Del</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

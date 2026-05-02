@@ -1,0 +1,19 @@
+@model ITBudgeting.Web.ViewModels.RecordUsageViewModel
+@{ ViewData["Title"] = "Record Usage"; }
+<h2 class="mb-4">Record PO Usage</h2>
+<p class="text-muted">Remaining: @ViewBag.RemainingAmount?.ToString("C")</p>
+<div class="card" style="max-width:400px">
+  <div class="card-body">
+    <form asp-action="RecordUsage" method="post">
+      @Html.AntiForgeryToken()
+      <div asp-validation-summary="All" class="text-danger small mb-2"></div>
+      <div class="mb-3">
+        <label asp-for="Amount" class="form-label">Amount Used</label>
+        <input asp-for="Amount" class="form-control" type="number" step="0.01" />
+      </div>
+      <button type="submit" class="btn btn-primary">Record</button>
+      <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+  </div>
+</div>
+@section Scripts { @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); } }

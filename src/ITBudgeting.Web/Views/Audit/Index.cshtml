@@ -1,0 +1,40 @@
+@model IEnumerable<ITBudgeting.Application.DTOs.BudgetAuditDto>
+@{ ViewData["Title"] = "Audit Log"; }
+<h2 class="mb-4">🔍 Audit Log</h2>
+<form method="get" class="row g-2 mb-3">
+    <div class="col-auto">
+        <input type="text" name="entityType" value="@ViewBag.EntityType" class="form-control" placeholder="Entity Type (e.g. BudgetVersion)" />
+    </div>
+    <div class="col-auto">
+        <input type="text" name="entityId" value="@ViewBag.EntityId" class="form-control" placeholder="Entity ID (GUID)" />
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+@if (Model.Any())
+{
+    <table class="table table-sm table-striped datatable">
+        <thead class="table-dark">
+            <tr><th>Entity Type</th><th>Entity ID</th><th>Field</th><th>Old Value</th><th>New Value</th><th>Changed By</th><th>Changed At</th></tr>
+        </thead>
+        <tbody>
+        @foreach (var a in Model)
+        {
+            <tr>
+                <td>@a.EntityType</td>
+                <td><small class="text-muted">@a.EntityId.ToString()[..8]…</small></td>
+                <td>@a.Field</td>
+                <td class="text-muted">@a.OldValue</td>
+                <td>@a.NewValue</td>
+                <td>@a.ChangedBy</td>
+                <td>@a.ChangedAt.ToString("yyyy-MM-dd HH:mm")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">Enter an entity type and ID to search the audit log.</p>
+}

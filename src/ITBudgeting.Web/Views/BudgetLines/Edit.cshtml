@@ -1,0 +1,26 @@
+@model ITBudgeting.Web.ViewModels.EditBudgetLineViewModel
+@{ ViewData["Title"] = "Edit Budget Line"; }
+<h2 class="mb-4">Edit Budget Line</h2>
+<div class="card" style="max-width:500px">
+  <div class="card-body">
+    <form asp-action="Edit" method="post">
+      @Html.AntiForgeryToken()
+      <div asp-validation-summary="All" class="text-danger small mb-2"></div>
+      <div class="mb-3">
+        <label asp-for="PlannedAmount" class="form-label"></label>
+        <input asp-for="PlannedAmount" class="form-control" type="number" step="0.01" />
+      </div>
+      <div class="mb-3">
+        <label asp-for="ApprovedAmount" class="form-label"></label>
+        <input asp-for="ApprovedAmount" class="form-control" type="number" step="0.01" />
+      </div>
+      <div class="mb-3">
+        <label asp-for="ActualAmount" class="form-label"></label>
+        <input asp-for="ActualAmount" class="form-control" type="number" step="0.01" />
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a asp-action="Index" asp-route-versionId="@ViewBag.VersionId" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+  </div>
+</div>
+@section Scripts { @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); } }

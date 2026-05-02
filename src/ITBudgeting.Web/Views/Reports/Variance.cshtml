@@ -1,0 +1,28 @@
+@model IEnumerable<ITBudgeting.Application.DTOs.BudgetVarianceLineDto>
+@{ ViewData["Title"] = "Variance Report"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>📉 Variance Report — @ViewBag.VersionName</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary">← Back</a>
+</div>
+<table class="table table-sm table-striped datatable">
+    <thead class="table-dark">
+        <tr><th>Project</th><th>Period</th>
+            <th class="text-end">Approved</th><th class="text-end">Actual</th>
+            <th class="text-end">Variance</th><th class="text-end">Variance %</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var l in Model)
+    {
+        var varClass = l.Variance < 0 ? "text-danger fw-bold" : "text-success";
+        <tr>
+            <td>@l.ProjectName</td>
+            <td>@l.Period</td>
+            <td class="text-end">@l.ApprovedAmount.ToString("C")</td>
+            <td class="text-end">@l.ActualAmount.ToString("C")</td>
+            <td class="text-end @varClass">@l.Variance.ToString("C")</td>
+            <td class="text-end @varClass">@l.VariancePercent.ToString("0.##")%</td>
+        </tr>
+    }
+    </tbody>
+</table>
