@@ -1,0 +1,12 @@
+/home/runner/work/itBudgeting/itBudgeting/src/ITBudgeting.Domain/bin/Debug/net8.0/ITBudgeting.Domain.deps.json
+/home/runner/work/itBudgeting/itBudgeting/src/ITBudgeting.Domain/bin/Debug/net8.0/ITBudgeting.Domain.dll
+/home/runner/work/itBudgeting/itBudgeting/src/ITBudgeting.Domain/bin/Debug/net8.0/ITBudgeting.Domain.pdb
+/home/runner/work/itBudgeting/itBudgeting/src/ITBudgeting.Domain/obj/Debug/net8.0/ITBudgeting.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/work/itBudgeting/itBudgeting/src/ITBudgeting.Domain/obj/Debug/net8.0/ITBudgeting.Domain.AssemblyInfoInputs.cache
+/home/runner/work/itBudgeting/itBudgeting/src/ITBudgeting.Domain/obj/Debug/net8.0/ITBudgeting.Domain.AssemblyInfo.cs
+/home/runner/work/itBudgeting/itBudgeting/src/ITBudgeting.Domain/obj/Debug/net8.0/ITBudgeting.Domain.csproj.CoreCompileInputs.cache
+/home/runner/work/itBudgeting/itBudgeting/src/ITBudgeting.Domain/obj/Debug/net8.0/ITBudgeting.Domain.sourcelink.json
+/home/runner/work/itBudgeting/itBudgeting/src/ITBudgeting.Domain/obj/Debug/net8.0/ITBudgeting.Domain.dll
+/home/runner/work/itBudgeting/itBudgeting/src/ITBudgeting.Domain/obj/Debug/net8.0/refint/ITBudgeting.Domain.dll
+/home/runner/work/itBudgeting/itBudgeting/src/ITBudgeting.Domain/obj/Debug/net8.0/ITBudgeting.Domain.pdb
+/home/runner/work/itBudgeting/itBudgeting/src/ITBudgeting.Domain/obj/Debug/net8.0/ref/ITBudgeting.Domain.dll
