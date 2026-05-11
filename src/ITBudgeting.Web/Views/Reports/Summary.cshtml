@@ -1,0 +1,34 @@
+@model IEnumerable<ITBudgeting.Application.DTOs.BudgetSummaryLineDto>
+@{ ViewData["Title"] = "Budget Summary"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>📊 Budget Summary — @ViewBag.VersionName</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary">← Back</a>
+</div>
+<table class="table table-sm table-striped datatable">
+    <thead class="table-dark">
+        <tr><th>Project</th><th>Project ID</th><th>Cost Center</th><th>Cost Center ID</th><th>Category</th><th>Period</th>
+            <th class="text-end">Planned</th><th class="text-end">Approved</th>
+            <th class="text-end">Committed</th><th class="text-end">Actual</th>
+            <th class="text-end">Remaining</th><th>Over?</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var l in Model)
+    {
+        <tr class="@(l.IsOverBudget ? "table-danger" : "")">
+            <td>@l.ProjectName</td>
+            <td><small>@l.ProjectId</small></td>
+            <td>@l.CostCenterName</td>
+            <td><small>@l.CostCenterId</small></td>
+            <td><span class="badge text-bg-@(l.Category.ToString()=="CapEx"?"info":"secondary")">@l.Category</span></td>
+            <td>@l.Period</td>
+            <td class="text-end">@l.PlannedAmount.ToString("C")</td>
+            <td class="text-end">@l.ApprovedAmount.ToString("C")</td>
+            <td class="text-end">@l.CommittedAmount.ToString("C")</td>
+            <td class="text-end">@l.ActualAmount.ToString("C")</td>
+            <td class="text-end @(l.RemainingAmount < 0 ? "text-danger fw-bold" : "text-success")">@l.RemainingAmount.ToString("C")</td>
+            <td>@(l.IsOverBudget ? "⚠️" : "✅")</td>
+        </tr>
+    }
+    </tbody>
+</table>

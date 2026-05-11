@@ -1,0 +1,30 @@
+@using ITBudgeting.Domain.Enums
+@model IEnumerable<ITBudgeting.Application.DTOs.BudgetPeriodDto>
+@{ ViewData["Title"] = "Budget Periods"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h2 class="mb-0">📅 Budget Periods</h2>
+        @if (ViewBag.VersionName != null)
+        {
+            <small class="text-muted">Version: @ViewBag.VersionName</small>
+        }
+    </div>
+</div>
+<table class="table table-striped datatable">
+    <thead class="table-dark"><tr><th>Month</th><th>Year</th><th>Open?</th><th>Lock Type</th><th>Actions</th></tr></thead>
+    <tbody>
+    @{ string[] mnames = { "January","February","March","April","May","June","July","August","September","October","November","December" }; }
+    @foreach (var p in Model.OrderBy(x => x.Month))
+    {
+        <tr>
+            <td>@mnames[p.Month - 1]</td>
+            <td>@p.Year</td>
+            <td>@(p.IsOpen ? "<span class='badge text-bg-success'>Open</span>" : "<span class='badge text-bg-danger'>Locked</span>")</td>
+            <td>@p.LockType</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@p.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "iu8buJ8f3dM=",
+  "success": true,
+  "projectFilePath": "/home/runner/work/itBudgeting/itBudgeting/src/ITBudgeting.Application/ITBudgeting.Application.csproj",
+  "expectedPackageFiles": [
+    "/home/runner/.nuget/packages/mediatr/12.4.1/mediatr.12.4.1.nupkg.sha512",
+    "/home/runner/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,30 @@
+@model ITBudgeting.Web.ViewModels.CreatePurchaseRequestViewModel
+@{ ViewData["Title"] = "New Purchase Request"; }
+<h2 class="mb-4">New Purchase Request</h2>
+<div class="card" style="max-width:500px">
+  <div class="card-body">
+    <form asp-action="Create" method="post">
+      @Html.AntiForgeryToken()
+      <div asp-validation-summary="All" class="text-danger small mb-2"></div>
+      <div class="mb-3">
+        <label asp-for="ProjectId" class="form-label">Project</label>
+        <select asp-for="ProjectId" asp-items="Model.Projects" class="form-select"><option value="">-- Select --</option></select>
+      </div>
+      <div class="mb-3">
+        <label asp-for="CostCenterId" class="form-label">Cost Center</label>
+        <select asp-for="CostCenterId" asp-items="Model.CostCenters" class="form-select"><option value="">-- Select --</option></select>
+      </div>
+      <div class="mb-3">
+        <label asp-for="Amount" class="form-label"></label>
+        <input asp-for="Amount" class="form-control" type="number" step="0.01" />
+      </div>
+      <div class="mb-3">
+        <label asp-for="SharePointUrl" class="form-label">SharePoint URL (optional)</label>
+        <input asp-for="SharePointUrl" class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-primary">Create</button>
+      <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+  </div>
+</div>
+@section Scripts { @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); } }

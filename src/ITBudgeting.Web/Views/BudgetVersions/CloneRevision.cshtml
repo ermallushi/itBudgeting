@@ -1,0 +1,36 @@
+@model ITBudgeting.Web.ViewModels.CloneRevisionViewModel
+@{ ViewData["Title"] = "Clone Revision"; }
+<h2 class="mb-4">Clone Revision</h2>
+<div class="card" style="max-width:550px">
+  <div class="card-body">
+    <form asp-action="CloneRevision" method="post">
+      @Html.AntiForgeryToken()
+      <div asp-validation-summary="All" class="text-danger small mb-2"></div>
+      <div class="mb-3">
+        <label asp-for="Name" class="form-label">Revision Name</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger small"></span>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Open Months (editable in revision)</label>
+        <div class="row g-2">
+          @{ string[] monthNames = { "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec" }; }
+          @for (int i = 0; i < 12; i++)
+          {
+              <div class="col-3">
+                <div class="form-check">
+                  <input type="checkbox" name="OpenMonths[@i]" value="true" id="m@i"
+                         class="form-check-input" @(Model.OpenMonths[i] ? "checked" : "") />
+                  <input type="hidden" name="OpenMonths[@i]" value="false" />
+                  <label for="m@i" class="form-check-label">@monthNames[i]</label>
+                </div>
+              </div>
+          }
+        </div>
+      </div>
+      <button type="submit" class="btn btn-warning">Clone</button>
+      <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+  </div>
+</div>
+@section Scripts { @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); } }
