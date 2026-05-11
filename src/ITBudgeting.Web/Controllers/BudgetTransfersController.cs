@@ -22,8 +22,12 @@ public class BudgetTransfersController : Controller
         _versionSvc = versionSvc;
     }
 
-    public async Task<IActionResult> Index(CancellationToken ct) =>
-        View(await _svc.GetAllAsync(ct));
+    public async Task<IActionResult> Index(CancellationToken ct)
+    {
+        var transfers = (await _svc.GetAllAsync(ct)).ToList();
+        ViewBag.ProjectLookup = (await _projectSvc.GetAllAsync(ct)).ToDictionary(p => p.Id, p => p.Name);
+        return View(transfers);
+    }
 
     [HttpGet]
     public async Task<IActionResult> Create(CancellationToken ct)

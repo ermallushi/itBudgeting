@@ -6,7 +6,7 @@
 </div>
 <table class="table table-sm table-striped datatable">
     <thead class="table-dark">
-        <tr><th>Project</th><th>Cost Center</th><th>Category</th><th>Period</th>
+        <tr><th>Project</th><th>Project ID</th><th>Cost Center</th><th>Cost Center ID</th><th>Category</th><th>Period</th>
             <th class="text-end">Planned</th><th class="text-end">Approved</th>
             <th class="text-end">Committed</th><th class="text-end">Actual</th>
             <th class="text-end">Remaining</th><th>Over?</th>
@@ -17,7 +17,9 @@
     {
         <tr class="@(l.IsOverBudget ? "table-danger" : "")">
             <td>@l.ProjectName</td>
+            <td><small>@l.ProjectId</small></td>
             <td>@l.CostCenterName</td>
+            <td><small>@l.CostCenterId</small></td>
             <td><span class="badge text-bg-@(l.Category.ToString()=="CapEx"?"info":"secondary")">@l.Category</span></td>
             <td>@l.Period</td>
             <td class="text-end">@l.PlannedAmount.ToString("C")</td>

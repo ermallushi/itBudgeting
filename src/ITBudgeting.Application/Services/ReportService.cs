@@ -51,10 +51,12 @@ public class ReportService
     {
         var lines = await _lineRepo.GetByVersionAsync(versionId, ct);
         var projects = (await _projectRepo.GetAllAsync(ct)).ToDictionary(p => p.Id);
+        var costCenters = (await _costCenterRepo.GetAllAsync(ct)).ToDictionary(c => c.Id);
 
         return lines.Select(l =>
         {
             projects.TryGetValue(l.ProjectId, out var project);
+            costCenters.TryGetValue(l.CostCenterId, out var costCenter);
             var variance = l.ApprovedAmount - l.ActualAmount;
             var variancePct = l.ApprovedAmount != 0
                 ? Math.Round(variance / l.ApprovedAmount * 100, 2)
@@ -62,6 +64,9 @@ public class ReportService
             return new BudgetVarianceLineDto(
                 l.ProjectId,
                 project?.Name ?? "Unknown",
+                l.CostCenterId,
+                costCenter?.Name ?? "Unknown",
+                l.Category,
                 l.Period,
                 l.ApprovedAmount,
                 l.ActualAmount,

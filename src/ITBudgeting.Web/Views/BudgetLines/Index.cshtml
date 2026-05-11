@@ -1,5 +1,11 @@
 @model IEnumerable<ITBudgeting.Application.DTOs.BudgetLineDto>
 @{ ViewData["Title"] = "Budget Lines"; }
+@{
+    var costCenters = ViewBag.CostCenterLookup as IDictionary<Guid, ITBudgeting.Application.DTOs.CostCenterDto>
+        ?? new Dictionary<Guid, ITBudgeting.Application.DTOs.CostCenterDto>();
+    var projects = ViewBag.ProjectLookup as IDictionary<Guid, ITBudgeting.Application.DTOs.ProjectDto>
+        ?? new Dictionary<Guid, ITBudgeting.Application.DTOs.ProjectDto>();
+}
 <div class="d-flex justify-content-between align-items-center mb-3">
     <div>
         <h2 class="mb-0">📝 Budget Lines</h2>
@@ -27,9 +33,11 @@
     @foreach (var l in Model)
     {
         var rowClass = l.IsOverBudget ? "table-danger" : "";
+        costCenters.TryGetValue(l.CostCenterId, out var costCenter);
+        projects.TryGetValue(l.ProjectId, out var project);
         <tr class="@rowClass">
-            <td>@l.CostCenterId.ToString()[..8]…</td>
-            <td>@l.ProjectId.ToString()[..8]…</td>
+            <td>@(costCenter is null ? l.CostCenterId.ToString() : $"{costCenter.Name} — {costCenter.Department}")</td>
+            <td>@(project is null ? l.ProjectId.ToString() : project.Name)</td>
             <td><span class="badge text-bg-@(l.Category.ToString() == "CapEx" ? "info" : "secondary")">@l.Category</span></td>
             <td>@l.Period</td>
             <td class="text-end">@l.PlannedAmount.ToString("C")</td>

@@ -26,6 +26,9 @@ public record BudgetSummaryLineDto(
 public record BudgetVarianceLineDto(
     Guid ProjectId,
     string ProjectName,
+    Guid CostCenterId,
+    string CostCenterName,
+    BudgetCategory Category,
     string Period,
     decimal ApprovedAmount,
     decimal ActualAmount,

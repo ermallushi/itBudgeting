@@ -30,7 +30,11 @@ public class BudgetLinesController : Controller
 
     public async Task<IActionResult> Index(Guid? versionId, CancellationToken ct)
     {
-        var lines = await _lineSvc.GetByFilterAsync(versionId, null, null, ct);
+        var lines = (await _lineSvc.GetByFilterAsync(versionId, null, null, ct)).ToList();
+        var costCenters = (await _costCenterSvc.GetAllAsync(ct)).ToDictionary(c => c.Id, c => c);
+        var projects = (await _projectSvc.GetAllAsync(ct)).ToDictionary(p => p.Id, p => p);
+        ViewBag.CostCenterLookup = costCenters;
+        ViewBag.ProjectLookup = projects;
         ViewBag.VersionId = versionId;
         if (versionId.HasValue)
         {
